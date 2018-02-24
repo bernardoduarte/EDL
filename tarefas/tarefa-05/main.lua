@@ -10,6 +10,12 @@ Velocity = {
 	x = nil,
 	y = nil,
 }
+-- Tarefa-05
+-- Nome: Operador "{}"
+-- Propriedade: Semântica
+-- Binding time: Compile
+-- Explicação: O construtor {} pode inicializar tanto arrays quanto tables.
+-- Em tempo de compilação será determinado que Velocity será um table e não um array.
 
 function Velocity:new(o)
 	local obj = newObj(self, o)
@@ -25,6 +31,13 @@ Player = {
 	width = nil,
 	height = nil,
 }
+-- Tarefa-05
+-- Nome: Variáveis "rot", "scale"
+-- Propriedade: Valor
+-- Binding time: Compile
+-- Explicação: Os valores dessas variáveis são atribuidos em tempo de compilação.
+-- Apesar da linguagem Lua ser uma linguagem interpretada, ela possui um compilador.
+-- Diferentemente de linguagens como C, o compilador de Lua está contido em seu runtime.
 
 function Player:new(o)
 	local obj = newObj(self, o)
@@ -40,6 +53,13 @@ function Player:new(o)
 	self.speed = 125
 	self.hp = 100
 	self.points = 0
+-- Tarefa-05
+-- Nome: Palavra "self"
+-- Propriedade: Endereço
+-- Binding time: Run
+-- Eplicação: O endereço de self está associado ao elemento que chama o método.
+-- Dessa forma, somente em runtime quando o método for chamado que o endereço de self será amarrado.
+
 	return obj
 end
 
@@ -127,10 +147,23 @@ end
 
 function Player:updateBullets(dt)
 	local window_w, window_h, _ = love.window.getMode()
+-- Tarefa-05
+-- Nomes: Variáveis "window_w" e "window_h"
+-- Propriedade: Endereço
+-- Binding time: Run
+-- Explicação: O endereço de variáveis locais só é alocado em tempo de execução.
+
 	for i, bullet in ipairs(self.bullets) do
 		bullet.x = bullet.x + (bullet.dx * dt)
 		bullet.y = bullet.y + (bullet.dy * dt)
 		local shotHit = false
+-- Tarefa-05
+-- Nome: Valor false
+-- Propriedade: Tipo
+-- Binding time: Design
+-- Explicação: Em Lua não existem definições de tipos, entretanto cada valor carrega o seu próprio tipo.
+-- Neste caso o tipo do valor false foi definido como boolean no design da linguagem.
+
 		for j, enemy in ipairs(enemies) do
 			if dist(enemy.x, enemy.y, bullet.x, bullet.y) < 10 then
 				enemyShot(enemy, j)
@@ -227,6 +260,12 @@ end
 
 function dist(x1, y1, x2, y2)
 	return math.sqrt(math.pow(x1-x2, 2) + math.pow(y1-y2, 2))
+-- Tarefa-05
+-- Nome: Funções "sqrt" e "pow"
+-- Propriedade: Implementação
+-- Binding time: Design
+-- Explicação: As funções sqrt e pow são funções da biblioteca padrão de matemática(math) da linguagem Lua.
+-- Portanto, suas implementações foram feitas durante o design da linguagem.
 end
 
 function love.load()
